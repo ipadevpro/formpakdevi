@@ -15,7 +15,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
-import { CalendarIcon, Loader2, Star, CheckCircle2, ChevronsUpDown, Check } from "lucide-react";
+import { CalendarIcon, Loader2, Star, CheckCircle2, ChevronsUpDown, Check, UploadCloud, X, FileText } from "lucide-react";
 import { format } from "date-fns";
 import { toast } from "sonner";
 import confetti from "canvas-confetti";
@@ -30,6 +30,7 @@ export function PublicForm({ form }: PublicFormProps) {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [popoverOpen, setPopoverOpen] = useState<Record<string, boolean>>({});
+  const [hoveredRatings, setHoveredRatings] = useState<Record<string, number>>({});
 
   const handleInputChange = (fieldId: string, value: any) => {
     setAnswers((prev) => ({ ...prev, [fieldId]: value }));
@@ -156,7 +157,8 @@ export function PublicForm({ form }: PublicFormProps) {
       <div className="absolute top-4 right-4">
         <ThemeToggle />
       </div>
-      <Card className="w-full max-w-xl shadow-xl border-slate-200 dark:border-slate-800">
+      <Card className="w-full max-w-xl shadow-xl border-slate-200 dark:border-slate-800 relative overflow-hidden">
+        <div className="h-1.5 w-full bg-gradient-to-r from-primary via-indigo-500 to-violet-500" />
         <CardHeader className="space-y-2 border-b border-slate-100 dark:border-slate-800 pb-6">
           <CardTitle className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
             {form.name}
@@ -351,19 +353,31 @@ export function PublicForm({ form }: PublicFormProps) {
                   )}
 
                   {field.type === "rating" && (
-                    <div className="flex items-center gap-1.5 mt-1">
+                    <div 
+                      className="flex items-center gap-1.5 mt-1"
+                      onMouseLeave={() => setHoveredRatings(prev => ({ ...prev, [field.id]: 0 }))}
+                    >
                       {[1, 2, 3, 4, 5].map((val) => {
-                        const active = (answers[field.id] || 0) >= val;
+                        const hoverVal = hoveredRatings[field.id] || 0;
+                        const isHoverActive = hoverVal >= val;
+                        const isSelectedActive = !hoverVal && (answers[field.id] || 0) >= val;
+                        const active = isHoverActive || isSelectedActive;
+                        
                         return (
                           <button
                             type="button"
                             key={val}
                             onClick={() => handleInputChange(field.id, val)}
-                            className="focus:outline-none transition-transform active:scale-95"
+                            onMouseEnter={() => setHoveredRatings(prev => ({ ...prev, [field.id]: val }))}
+                            className="focus:outline-none transition-all duration-150 hover:scale-115 active:scale-95"
                           >
                             <Star
-                              className={`h-7 w-7 ${
-                                active ? "text-amber-400 fill-amber-400" : "text-slate-300 dark:text-slate-700"
+                              className={`h-8 w-8 transition-colors ${
+                                active 
+                                  ? isHoverActive 
+                                    ? "text-amber-300 fill-amber-300/50" 
+                                    : "text-amber-400 fill-amber-400"
+                                  : "text-slate-300 dark:text-slate-700"
                               }`}
                             />
                           </button>
@@ -405,29 +419,77 @@ export function PublicForm({ form }: PublicFormProps) {
                   )}
 
                   {field.type === "file" && (
-                    <Input
-                      type="file"
-                      onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        if (file) {
-                          // In a real app we upload this to Firebase Storage and get a URL.
-                          // For our boilerplate we can store filename metadata or base64 representation.
-                          // Let's store a mock structure for local simplicity.
-                          const maxMB = field.validation?.maxFileSize || 10;
-                          if (file.size > maxMB * 1024 * 1024) {
-                            toast.error(`Ukuran file maksimal adalah ${maxMB}MB.`);
-                            e.target.value = "";
-                            return;
-                          }
-                          handleInputChange(field.id, {
-                            name: file.name,
-                            size: `${(file.size / (1024 * 1024)).toFixed(2)} MB`,
-                            uploadedAt: new Date().toISOString(),
-                          });
-                        }
-                      }}
-                      className={err ? "border-red-500" : ""}
-                    />
+                    <div className="flex flex-col gap-2">
+                      {answers[field.id] ? (
+                        /* File Selected Preview State */
+                        <div className="flex items-center justify-between p-3 border border-slate-200 dark:border-slate-800 rounded-xl bg-slate-50 dark:bg-slate-900/50 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors">
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div className="p-2 bg-blue-50 dark:bg-blue-950/50 rounded-lg text-primary shrink-0">
+                              <FileText className="h-5 w-5 text-primary" />
+                            </div>
+                            <div className="flex flex-col min-w-0">
+                              <span className="text-xs font-semibold text-slate-800 dark:text-slate-250 truncate">
+                                {answers[field.id].name}
+                              </span>
+                              <span className="text-[10px] text-slate-400">
+                                {answers[field.id].size}
+                              </span>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="h-5 w-5 rounded-full bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-emerald-600 flex items-center justify-center shrink-0">
+                              <Check className="h-3 w-3" />
+                            </span>
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="icon"
+                              className="h-8 w-8 text-red-500 hover:text-red-655 hover:bg-red-50 dark:hover:bg-red-950/20 shrink-0"
+                              onClick={() => handleInputChange(field.id, undefined)}
+                            >
+                              <X className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </div>
+                      ) : (
+                        /* Empty Upload Zone State */
+                        <label
+                          htmlFor={`file-input-${field.id}`}
+                          className={`flex flex-col items-center justify-center border-2 border-dashed rounded-xl p-6 bg-slate-50/50 dark:bg-slate-950/30 hover:bg-slate-100/50 dark:hover:bg-slate-900/20 hover:border-primary/50 dark:hover:border-primary/45 transition-all cursor-pointer text-center ${
+                            err ? "border-red-500 bg-red-50/10" : "border-slate-200 dark:border-slate-800"
+                          }`}
+                        >
+                          <UploadCloud className="h-8 w-8 text-slate-400 dark:text-slate-500 mb-2 animate-bounce" style={{ animationDuration: '3s' }} />
+                          <span className="text-xs font-semibold text-slate-700 dark:text-slate-350">
+                            Pilih file atau seret ke sini
+                          </span>
+                          <span className="text-[10px] text-slate-400 mt-1">
+                            Maksimal ukuran file: {field.validation?.maxFileSize || 10}MB
+                          </span>
+                          <input
+                            id={`file-input-${field.id}`}
+                            type="file"
+                            className="hidden"
+                            onChange={(e) => {
+                              const file = e.target.files?.[0];
+                              if (file) {
+                                const maxMB = field.validation?.maxFileSize || 10;
+                                if (file.size > maxMB * 1024 * 1024) {
+                                  toast.error(`Ukuran file maksimal adalah ${maxMB}MB.`);
+                                  e.target.value = "";
+                                  return;
+                                }
+                                handleInputChange(field.id, {
+                                  name: file.name,
+                                  size: `${(file.size / (1024 * 1024)).toFixed(2)} MB`,
+                                  uploadedAt: new Date().toISOString(),
+                                });
+                              }
+                            }}
+                          />
+                        </label>
+                      )}
+                    </div>
                   )}
 
                   {err && <span className="text-xs text-red-500 mt-0.5">{err}</span>}
