@@ -30,7 +30,8 @@ export default function LoginPage() {
       });
 
       if (!res.ok) {
-        throw new Error("Failed to initialize server session");
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.error || "Failed to initialize server session");
       }
 
       toast.success("Login Berhasil!");
