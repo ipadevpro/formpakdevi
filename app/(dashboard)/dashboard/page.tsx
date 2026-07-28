@@ -5,7 +5,7 @@ import { CreateFormButton } from "@/components/dashboard/create-form-btn";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Edit3, BarChart3, ListCollapse, ExternalLink, Globe } from "lucide-react";
+import { Edit3, BarChart3, ListCollapse, ExternalLink, Globe, Eye, MessageSquare } from "lucide-react";
 import Link from "next/link";
 
 interface DashboardForm {
@@ -102,13 +102,19 @@ export default async function DashboardPage() {
           {formsList.map((form: DashboardForm) => (
             <Card
               key={form.id}
-              className="flex flex-col border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:shadow-md transition-shadow"
+              className="flex flex-col border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:shadow-lg hover:-translate-y-1 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 rounded-2xl overflow-hidden"
             >
               <CardHeader className="pb-3 flex flex-col gap-1.5 min-w-0">
                 <div className="flex items-start justify-between gap-2">
-                  <Badge variant={form.published ? "default" : "secondary"}>
-                    {form.published ? "Published" : "Draft"}
-                  </Badge>
+                  {form.published ? (
+                    <Badge className="bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 hover:bg-emerald-100/50 shadow-none font-semibold">
+                      Published
+                    </Badge>
+                  ) : (
+                    <Badge variant="secondary" className="bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700 hover:bg-slate-200/50 shadow-none font-semibold">
+                      Draft
+                    </Badge>
+                  )}
                   <span className="text-[10px] text-slate-400 font-mono">
                     {form.createdAt.toLocaleDateString("id-ID")}
                   </span>
@@ -122,16 +128,22 @@ export default async function DashboardPage() {
               </CardHeader>
               <CardContent className="pb-4 pt-0 flex-1">
                 {/* Stats indicators */}
-                <div className="grid grid-cols-2 gap-4 bg-slate-50 dark:bg-slate-950 p-3 rounded-xl border border-slate-100 dark:border-slate-800">
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-slate-400">Total Kunjungan</span>
-                    <span className="text-lg font-extrabold text-slate-800 dark:text-slate-100">
+                <div className="grid grid-cols-2 gap-4 bg-slate-50/50 dark:bg-slate-950/50 p-3 rounded-xl border border-slate-100 dark:border-slate-800">
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[10px] text-slate-400 font-medium flex items-center gap-1">
+                      <Eye className="h-3 w-3 text-slate-400" />
+                      Kunjungan
+                    </span>
+                    <span className="text-lg font-extrabold text-slate-800 dark:text-slate-100 leading-none">
                       {form.visits}
                     </span>
                   </div>
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-slate-400">Submissions</span>
-                    <span className="text-lg font-extrabold text-slate-800 dark:text-slate-100">
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[10px] text-slate-400 font-medium flex items-center gap-1">
+                      <MessageSquare className="h-3 w-3 text-slate-400" />
+                      Respon
+                    </span>
+                    <span className="text-lg font-extrabold text-slate-800 dark:text-slate-100 leading-none">
                       {form.submissionsCount}
                     </span>
                   </div>
