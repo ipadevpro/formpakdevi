@@ -116,6 +116,27 @@ export function PropertiesPanel() {
           />
         </div>
 
+        {/* Searchable Toggle for Select dropdowns */}
+        {activeField.type === "select" && (
+          <div className="flex items-center justify-between p-3 border border-slate-100 dark:border-slate-800 rounded-lg bg-slate-50 dark:bg-slate-950 mt-2">
+            <div className="flex flex-col gap-0.5">
+              <Label htmlFor="prop-searchable" className="cursor-pointer">
+                Pencarian Aktif (Combobox)
+              </Label>
+              <span className="text-[10px] text-slate-400">Aktifkan pencarian filter pilihan</span>
+            </div>
+            <Switch
+              id="prop-searchable"
+              checked={!!activeField.validation?.searchable}
+              onCheckedChange={(checked) =>
+                updateField(activeField.id, {
+                  validation: { ...activeField.validation, searchable: checked },
+                })
+              }
+            />
+          </div>
+        )}
+
         {/* Choices Options list */}
         {showOptions && (
           <div className="flex flex-col gap-3 mt-2 border-t border-slate-100 dark:border-slate-850 pt-4">
