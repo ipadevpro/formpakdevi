@@ -226,8 +226,8 @@ export function PublicForm({ form }: PublicFormProps) {
                         <SelectValue placeholder={field.placeholder || "Pilih salah satu..."} />
                       </SelectTrigger>
                       <SelectContent>
-                        {(field.options || []).map((opt) => (
-                          <SelectItem key={opt} value={opt}>
+                        {(field.options || []).map((opt, i) => (
+                          <SelectItem key={`${opt}-${i}`} value={opt}>
                             {opt}
                           </SelectItem>
                         ))}
@@ -250,11 +250,11 @@ export function PublicForm({ form }: PublicFormProps) {
 
                   {field.type === "checkbox" && (
                     <div className="flex flex-col gap-2 mt-1">
-                      {(field.options || []).map((opt) => {
+                      {(field.options || []).map((opt, i) => {
                         const current = answers[field.id] || [];
                         const checked = current.includes(opt);
                         return (
-                          <div key={opt} className="flex items-center gap-2">
+                          <div key={`${opt}-${i}`} className="flex items-center gap-2">
                             <Checkbox
                               id={`check-${field.id}-${opt}`}
                               checked={checked}
@@ -276,8 +276,8 @@ export function PublicForm({ form }: PublicFormProps) {
 
                   {field.type === "radio" && (
                     <RadioGroup onValueChange={(val) => handleInputChange(field.id, val)} className="flex flex-col gap-2 mt-1">
-                      {(field.options || []).map((opt) => (
-                        <div key={opt} className="flex items-center gap-2">
+                      {(field.options || []).map((opt, i) => (
+                        <div key={`${opt}-${i}`} className="flex items-center gap-2">
                           <RadioGroupItem id={`radio-${field.id}-${opt}`} value={opt} />
                           <Label htmlFor={`radio-${field.id}-${opt}`} className="text-xs font-normal text-slate-600 dark:text-slate-350 cursor-pointer">
                             {opt}
