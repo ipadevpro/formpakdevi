@@ -25,6 +25,7 @@ export interface FormField {
     max?: number; // max length for string, max value for number
     maxFileSize?: number; // in MB, for file upload
     allowedExtensions?: string[]; // e.g. ['.png', '.jpg', '.pdf']
+    searchable?: boolean; // True jika dropdown memiliki fitur pencarian (Combobox)
   };
 }
 
