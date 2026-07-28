@@ -25,21 +25,16 @@ export function DesignerCanvas() {
         ref={setNodeRef}
         className={`w-full max-w-2xl min-h-[500px] border-2 border-dashed rounded-2xl p-6 transition-all bg-white dark:bg-slate-900 ${
           isOver
-            ? "border-primary bg-slate-100/50 dark:bg-slate-900/50 scale-[1.01]"
+            ? "border-primary bg-slate-100/50 dark:bg-slate-900/50"
             : "border-slate-200 dark:border-slate-800"
         } ${fields.length === 0 ? "flex items-center justify-center" : ""}`}
       >
         {fields.length === 0 ? (
-          <div className="text-center text-slate-400 dark:text-slate-500 py-16 flex flex-col items-center justify-center gap-4">
-            <div className="p-4 bg-slate-50 dark:bg-slate-950 rounded-full border border-slate-100 dark:border-slate-800 text-primary animate-pulse">
-              <FileSpreadsheet className="h-10 w-10 text-primary" />
-            </div>
-            <div>
-              <p className="text-lg font-bold text-slate-700 dark:text-slate-300">Kanvas Editor Kosong</p>
-              <p className="text-sm text-slate-450 dark:text-slate-500 max-w-xs mt-1 leading-relaxed">
-                Pilih elemen di sebelah kiri atau seret ke sini untuk merancang formulir Anda.
-              </p>
-            </div>
+          <div className="text-center text-slate-400 dark:text-slate-500 py-20 flex flex-col items-center justify-center">
+            <p className="text-sm font-medium text-slate-700 dark:text-slate-300">Kanvas Editor Kosong</p>
+            <p className="text-xs text-slate-400 dark:text-slate-500 max-w-xs mt-1">
+              Klik elemen di sebelah kiri untuk mulai merancang formulir Anda.
+            </p>
           </div>
         ) : (
           <div className="flex flex-col gap-4">
@@ -93,8 +88,8 @@ function SortableDesignerField({
       }}
       className={`group flex items-start gap-3 p-4 border rounded-xl bg-white dark:bg-slate-950 transition-all cursor-pointer select-none relative ${
         isSelected
-          ? "border-primary border-l-4 border-l-primary bg-slate-50/30 dark:bg-slate-900/10 shadow-md scale-[1.005]"
-          : "border-slate-200 dark:border-slate-800 hover:border-slate-350 dark:hover:border-slate-700 hover:shadow-sm"
+          ? "border-primary ring-1 ring-primary"
+          : "border-slate-200 dark:border-slate-800 hover:border-slate-350 dark:hover:border-slate-700"
       } ${isDragging ? "opacity-30" : ""}`}
     >
       {/* Drag handle */}

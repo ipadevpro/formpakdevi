@@ -157,8 +157,7 @@ export function PublicForm({ form }: PublicFormProps) {
       <div className="absolute top-4 right-4">
         <ThemeToggle />
       </div>
-      <Card className="w-full max-w-xl shadow-xl border-slate-200 dark:border-slate-800 relative overflow-hidden">
-        <div className="h-1.5 w-full bg-gradient-to-r from-primary via-indigo-500 to-violet-500" />
+      <Card className="w-full max-w-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm rounded-xl">
         <CardHeader className="space-y-2 border-b border-slate-100 dark:border-slate-800 pb-6">
           <CardTitle className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
             {form.name}
@@ -369,7 +368,7 @@ export function PublicForm({ form }: PublicFormProps) {
                             key={val}
                             onClick={() => handleInputChange(field.id, val)}
                             onMouseEnter={() => setHoveredRatings(prev => ({ ...prev, [field.id]: val }))}
-                            className="focus:outline-none transition-all duration-150 hover:scale-115 active:scale-95"
+                            className="focus:outline-none transition-colors duration-150"
                           >
                             <Star
                               className={`h-8 w-8 transition-colors ${
@@ -455,11 +454,11 @@ export function PublicForm({ form }: PublicFormProps) {
                         /* Empty Upload Zone State */
                         <label
                           htmlFor={`file-input-${field.id}`}
-                          className={`flex flex-col items-center justify-center border-2 border-dashed rounded-xl p-6 bg-slate-50/50 dark:bg-slate-950/30 hover:bg-slate-100/50 dark:hover:bg-slate-900/20 hover:border-primary/50 dark:hover:border-primary/45 transition-all cursor-pointer text-center ${
+                          className={`flex flex-col items-center justify-center border-2 border-dashed rounded-xl p-6 bg-slate-50/50 dark:bg-slate-950/30 hover:bg-slate-100/50 dark:hover:bg-slate-900/20 hover:border-slate-450 dark:hover:border-slate-600 transition-all cursor-pointer text-center ${
                             err ? "border-red-500 bg-red-50/10" : "border-slate-200 dark:border-slate-800"
                           }`}
                         >
-                          <UploadCloud className="h-8 w-8 text-slate-400 dark:text-slate-500 mb-2 animate-bounce" style={{ animationDuration: '3s' }} />
+                          <UploadCloud className="h-6 w-6 text-slate-400 dark:text-slate-500 mb-2" />
                           <span className="text-xs font-semibold text-slate-700 dark:text-slate-350">
                             Pilih file atau seret ke sini
                           </span>

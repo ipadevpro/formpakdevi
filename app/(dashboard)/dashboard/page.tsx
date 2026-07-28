@@ -102,7 +102,7 @@ export default async function DashboardPage() {
           {formsList.map((form: DashboardForm) => (
             <Card
               key={form.id}
-              className="flex flex-col border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:shadow-lg hover:-translate-y-1 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 rounded-2xl overflow-hidden"
+              className="flex flex-col border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-slate-400 dark:hover:border-slate-700 transition-colors"
             >
               <CardHeader className="pb-3 flex flex-col gap-1.5 min-w-0">
                 <div className="flex items-start justify-between gap-2">
@@ -128,24 +128,14 @@ export default async function DashboardPage() {
               </CardHeader>
               <CardContent className="pb-4 pt-0 flex-1">
                 {/* Stats indicators */}
-                <div className="grid grid-cols-2 gap-4 bg-slate-50/50 dark:bg-slate-950/50 p-3 rounded-xl border border-slate-100 dark:border-slate-800">
-                  <div className="flex flex-col gap-1">
-                    <span className="text-[10px] text-slate-400 font-medium flex items-center gap-1">
-                      <Eye className="h-3 w-3 text-slate-400" />
-                      Kunjungan
-                    </span>
-                    <span className="text-lg font-extrabold text-slate-800 dark:text-slate-100 leading-none">
-                      {form.visits}
-                    </span>
+                <div className="flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400">
+                  <div className="flex items-center gap-1">
+                    <Eye className="h-3.5 w-3.5 text-slate-400" />
+                    <span>{form.visits} views</span>
                   </div>
-                  <div className="flex flex-col gap-1">
-                    <span className="text-[10px] text-slate-400 font-medium flex items-center gap-1">
-                      <MessageSquare className="h-3 w-3 text-slate-400" />
-                      Respon
-                    </span>
-                    <span className="text-lg font-extrabold text-slate-800 dark:text-slate-100 leading-none">
-                      {form.submissionsCount}
-                    </span>
+                  <div className="flex items-center gap-1">
+                    <MessageSquare className="h-3.5 w-3.5 text-slate-400" />
+                    <span>{form.submissionsCount} submissions</span>
                   </div>
                 </div>
 
