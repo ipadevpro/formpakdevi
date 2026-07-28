@@ -77,7 +77,7 @@ function DraggableSidebarElement({ elem, onClick }: { elem: SidebarElement; onCl
       {...listeners}
       {...attributes}
       onClick={onClick}
-      className={`flex flex-col items-center justify-center p-3 border rounded-xl bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-600 transition-all text-center group cursor-pointer ${
+      className={`flex flex-col items-center justify-center p-3 border rounded-xl bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-600 hover:shadow-md hover:scale-105 active:scale-95 transition-all duration-200 text-center group cursor-pointer ${
         isDragging ? "opacity-40" : ""
       }`}
     >

@@ -7,7 +7,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { useBuilder } from "./builder-context";
 import { FormField } from "@/lib/types";
 import { Button } from "@/components/ui/button";
-import { Trash2, GripVertical, Star } from "lucide-react";
+import { Trash2, GripVertical, Star, FileSpreadsheet } from "lucide-react";
 
 export function DesignerCanvas() {
   const { fields, activeField, setActiveField, removeField, setFields } = useBuilder();
@@ -30,9 +30,16 @@ export function DesignerCanvas() {
         } ${fields.length === 0 ? "flex items-center justify-center" : ""}`}
       >
         {fields.length === 0 ? (
-          <div className="text-center text-slate-400 dark:text-slate-500 py-12">
-            <p className="text-lg font-medium">Canvas Editor Kosong</p>
-            <p className="text-sm mt-1">Klik elemen di sidebar kiri untuk mulai mendesain form.</p>
+          <div className="text-center text-slate-400 dark:text-slate-500 py-16 flex flex-col items-center justify-center gap-4">
+            <div className="p-4 bg-slate-50 dark:bg-slate-950 rounded-full border border-slate-100 dark:border-slate-800 text-primary animate-pulse">
+              <FileSpreadsheet className="h-10 w-10 text-primary" />
+            </div>
+            <div>
+              <p className="text-lg font-bold text-slate-700 dark:text-slate-300">Kanvas Editor Kosong</p>
+              <p className="text-sm text-slate-450 dark:text-slate-500 max-w-xs mt-1 leading-relaxed">
+                Pilih elemen di sebelah kiri atau seret ke sini untuk merancang formulir Anda.
+              </p>
+            </div>
           </div>
         ) : (
           <div className="flex flex-col gap-4">
@@ -86,8 +93,8 @@ function SortableDesignerField({
       }}
       className={`group flex items-start gap-3 p-4 border rounded-xl bg-white dark:bg-slate-950 transition-all cursor-pointer select-none relative ${
         isSelected
-          ? "border-primary ring-2 ring-primary/20 dark:ring-primary/40 shadow-md"
-          : "border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700"
+          ? "border-primary border-l-4 border-l-primary bg-slate-50/30 dark:bg-slate-900/10 shadow-md scale-[1.005]"
+          : "border-slate-200 dark:border-slate-800 hover:border-slate-350 dark:hover:border-slate-700 hover:shadow-sm"
       } ${isDragging ? "opacity-30" : ""}`}
     >
       {/* Drag handle */}
