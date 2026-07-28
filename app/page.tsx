@@ -43,7 +43,7 @@ export default function Home() {
         </h1>
 
         <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl">
-          Desain formulir Anda sendiri secara visual, kustomisasi slug link unik Anda (misal: <code>form.pakdevi.com/s/form-anda</code>), 
+          Desain formulir Anda sendiri secara visual, kustomisasi slug link unik Anda (misal: <code>form.pakdevi.com/form-anda</code>), 
           pantau tren kunjungan harian, dan kelola semua respon masuk dalam tampilan spreadsheet yang interaktif.
         </p>
 

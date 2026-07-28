@@ -118,7 +118,7 @@ function FormBuilderWorkspace({ initialForm }: { initialForm: Form }) {
   };
 
   const copyPublicLink = () => {
-    const publicUrl = `${window.location.origin}/s/${slug}`;
+    const publicUrl = `${window.location.origin}/${slug}`;
     navigator.clipboard.writeText(publicUrl);
     toast.success("Link formulir berhasil disalin!");
   };
@@ -168,7 +168,7 @@ function FormBuilderWorkspace({ initialForm }: { initialForm: Form }) {
 
           {/* Custom Slug configuration */}
           <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-950 px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-800">
-            <span className="text-[10px] text-slate-400 font-mono">form.pakdevi.com/s/</span>
+            <span className="text-[10px] text-slate-400 font-mono">form.pakdevi.com/</span>
             <input
               type="text"
               value={slug}
@@ -194,7 +194,7 @@ function FormBuilderWorkspace({ initialForm }: { initialForm: Form }) {
             Simpan
           </Button>
 
-          <Button variant="outline" size="sm" onClick={() => window.open(`/s/${slug}`, "_blank")} className="hidden sm:flex items-center gap-1">
+          <Button variant="outline" size="sm" onClick={() => window.open(`/${slug}`, "_blank")} className="hidden sm:flex items-center gap-1">
             <Eye className="h-4 w-4" />
             Pratinjau
           </Button>

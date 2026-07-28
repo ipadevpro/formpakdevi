@@ -153,11 +153,11 @@ export default async function DashboardPage() {
                 <div className="mt-4 flex items-center justify-between text-xs border-t border-slate-100 dark:border-slate-800 pt-3">
                   <span className="text-slate-400 truncate flex items-center gap-1">
                     <Globe className="h-3 w-3 shrink-0" />
-                    /s/{form.slug}
+                    /{form.slug}
                   </span>
                   {form.published && (
                     <a
-                      href={`/s/${form.slug}`}
+                      href={`/${form.slug}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-primary hover:underline flex items-center gap-0.5"
