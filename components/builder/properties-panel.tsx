@@ -139,7 +139,7 @@ export function PropertiesPanel() {
 
         {/* Choices Options list */}
         {showOptions && (
-          <div className="flex flex-col gap-3 mt-2 border-t border-slate-100 dark:border-slate-850 pt-4">
+          <div className="flex flex-col gap-3 mt-2 border-t border-slate-100 dark:border-slate-800 pt-4">
             <Label>Daftar Pilihan (Opsi)</Label>
             <div className="flex flex-col gap-2">
               {(activeField.options || []).map((opt, i) => (
@@ -172,7 +172,7 @@ export function PropertiesPanel() {
 
         {/* Validation limits for texts or numbers */}
         {activeField.type === "number" && (
-          <div className="flex flex-col gap-3 mt-2 border-t border-slate-100 dark:border-slate-850 pt-4">
+          <div className="flex flex-col gap-3 mt-2 border-t border-slate-100 dark:border-slate-800 pt-4">
             <Label>Batasan Nilai Angka</Label>
             <div className="grid grid-cols-2 gap-2">
               <div className="flex flex-col gap-1">
@@ -209,7 +209,7 @@ export function PropertiesPanel() {
 
         {/* Validation limits for File Upload */}
         {activeField.type === "file" && (
-          <div className="flex flex-col gap-3 mt-2 border-t border-slate-100 dark:border-slate-850 pt-4">
+          <div className="flex flex-col gap-3 mt-2 border-t border-slate-100 dark:border-slate-800 pt-4">
             <Label>Pengaturan File</Label>
             <div className="flex flex-col gap-1.5">
               <Label htmlFor="prop-max-file-size" className="text-xs">Ukuran Maksimal (MB)</Label>

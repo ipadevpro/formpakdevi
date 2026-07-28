@@ -168,7 +168,7 @@ export default async function StatsPage({
             <span className="text-xs text-slate-400 font-semibold uppercase">Total Kunjungan</span>
           </CardHeader>
           <CardContent>
-            <span className="text-3xl font-extrabold text-slate-850 dark:text-slate-50">{totalVisits}</span>
+            <span className="text-3xl font-extrabold text-slate-800 dark:text-slate-50">{totalVisits}</span>
           </CardContent>
         </Card>
         <Card className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
@@ -176,7 +176,7 @@ export default async function StatsPage({
             <span className="text-xs text-slate-400 font-semibold uppercase">Total Respon</span>
           </CardHeader>
           <CardContent>
-            <span className="text-3xl font-extrabold text-slate-850 dark:text-slate-50">{totalSubmissions}</span>
+            <span className="text-3xl font-extrabold text-slate-800 dark:text-slate-50">{totalSubmissions}</span>
           </CardContent>
         </Card>
         <Card className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
@@ -184,7 +184,7 @@ export default async function StatsPage({
             <span className="text-xs text-slate-400 font-semibold uppercase">Tingkat Konversi</span>
           </CardHeader>
           <CardContent>
-            <span className="text-3xl font-extrabold text-slate-850 dark:text-slate-50">{conversionRate}%</span>
+            <span className="text-3xl font-extrabold text-slate-800 dark:text-slate-50">{conversionRate}%</span>
           </CardContent>
         </Card>
       </div>

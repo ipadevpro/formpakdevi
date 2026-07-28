@@ -87,7 +87,7 @@ export default async function DashboardPage() {
 
       {formsList.length === 0 ? (
         // Empty State layout
-        <div className="flex flex-col items-center justify-center border border-dashed border-slate-350 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-2xl py-16 px-4 text-center">
+        <div className="flex flex-col items-center justify-center border border-dashed border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-2xl py-16 px-4 text-center">
           <div className="h-12 w-12 bg-slate-100 dark:bg-slate-950 rounded-full flex items-center justify-center text-slate-400 mb-4">
             <Globe className="h-6 w-6" />
           </div>
@@ -122,7 +122,7 @@ export default async function DashboardPage() {
               </CardHeader>
               <CardContent className="pb-4 pt-0 flex-1">
                 {/* Stats indicators */}
-                <div className="grid grid-cols-2 gap-4 bg-slate-50 dark:bg-slate-950 p-3 rounded-xl border border-slate-100 dark:border-slate-850">
+                <div className="grid grid-cols-2 gap-4 bg-slate-50 dark:bg-slate-950 p-3 rounded-xl border border-slate-100 dark:border-slate-800">
                   <div className="flex flex-col">
                     <span className="text-[10px] text-slate-400">Total Kunjungan</span>
                     <span className="text-lg font-extrabold text-slate-800 dark:text-slate-100">
@@ -138,8 +138,8 @@ export default async function DashboardPage() {
                 </div>
 
                 {/* Custom Slug Link Preview */}
-                <div className="mt-4 flex items-center justify-between text-xs border-t border-slate-100 dark:border-slate-850 pt-3">
-                  <span className="text-slate-450 truncate flex items-center gap-1">
+                <div className="mt-4 flex items-center justify-between text-xs border-t border-slate-100 dark:border-slate-800 pt-3">
+                  <span className="text-slate-400 truncate flex items-center gap-1">
                     <Globe className="h-3 w-3 shrink-0" />
                     /s/{form.slug}
                   </span>
@@ -155,7 +155,7 @@ export default async function DashboardPage() {
                   )}
                 </div>
               </CardContent>
-              <CardFooter className="border-t border-slate-100 dark:border-slate-850 pt-3 pb-3 flex items-center justify-between bg-slate-50/50 dark:bg-slate-900/50 rounded-b-xl gap-2 shrink-0">
+              <CardFooter className="border-t border-slate-100 dark:border-slate-800 pt-3 pb-3 flex items-center justify-between bg-slate-50/50 dark:bg-slate-900/50 rounded-b-xl gap-2 shrink-0">
                 <Link href={`/forms/${form.id}`} className="flex-1">
                   <Button variant="outline" size="sm" className="w-full gap-1">
                     <Edit3 className="h-3.5 w-3.5" />

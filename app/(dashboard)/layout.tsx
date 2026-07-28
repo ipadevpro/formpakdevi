@@ -3,6 +3,7 @@
 import React from "react";
 import { AuthProvider, useAuth } from "@/components/provider/auth-provider";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { FileSpreadsheet, LogOut, LayoutDashboard, FormInput } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -91,6 +92,7 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
           </div>
 
           <div className="flex items-center gap-4">
+            <ThemeToggle />
             <div className="flex items-center gap-2 md:hidden">
               <Button variant="ghost" size="icon" className="h-8 w-8 text-red-500" onClick={logout}>
                 <LogOut className="h-4 w-4" />

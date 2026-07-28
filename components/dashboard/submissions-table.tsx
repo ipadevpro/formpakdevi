@@ -74,7 +74,7 @@ export function SubmissionsTable({ fields, submissions }: SubmissionsTableProps)
                   e.stopPropagation();
                   handleCopy(String(val));
                 }}
-                className="opacity-0 group-hover:opacity-100 p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-400 hover:text-slate-650 transition-opacity"
+                className="opacity-0 group-hover:opacity-100 p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-400 hover:text-slate-600 transition-opacity"
                 title="Salin isi sel"
               >
                 <Copy className="h-3 w-3" />

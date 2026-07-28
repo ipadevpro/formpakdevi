@@ -139,7 +139,7 @@ export function AnalyticsCharts({ trendData, deviceData }: AnalyticsChartsProps)
                       className="h-3 w-3 rounded-full shrink-0"
                       style={{ backgroundColor: COLORS[index % COLORS.length] }}
                     />
-                    <span className="text-slate-650 dark:text-slate-350">
+                    <span className="text-slate-600 dark:text-slate-400">
                       {d.name}: {d.value}
                     </span>
                   </div>

@@ -9,6 +9,7 @@ import { DesignerCanvas } from "./designer-canvas";
 import { PropertiesPanel } from "./properties-panel";
 import { Form, FormField } from "@/lib/types";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
@@ -31,7 +32,7 @@ export function FormBuilder({ initialForm }: FormBuilderProps) {
 }
 
 function FormBuilderWorkspace({ initialForm }: { initialForm: Form }) {
-  const { fields, setFields } = useBuilder();
+  const { fields, setFields, addField } = useBuilder();
   const [formName, setFormName] = useState(initialForm.name);
   const [formDesc, setFormDesc] = useState(initialForm.description || "");
   const [isPublished, setIsPublished] = useState(initialForm.published);
@@ -52,6 +53,25 @@ function FormBuilderWorkspace({ initialForm }: { initialForm: Form }) {
     const { active, over } = event;
     if (!over) return;
 
+    // Case 1: Dragging from sidebar to add a new field
+    if (String(active.id).startsWith("sidebar-element-")) {
+      const type = active.data.current?.type;
+      if (!type) return;
+
+      let targetIndex = fields.length;
+      if (over.id !== "designer-canvas") {
+        const overIndex = fields.findIndex((f) => f.id === over.id);
+        if (overIndex !== -1) {
+          targetIndex = overIndex;
+        }
+      }
+
+      addField(type, targetIndex);
+      toast.success("Elemen berhasil ditambahkan!");
+      return;
+    }
+
+    // Case 2: Sorting existing fields
     if (active.id !== over.id) {
       setFields((prev) => {
         const oldIndex = prev.findIndex((item) => item.id === active.id);
@@ -178,6 +198,8 @@ function FormBuilderWorkspace({ initialForm }: { initialForm: Form }) {
             <Eye className="h-4 w-4" />
             Pratinjau
           </Button>
+
+          <ThemeToggle />
         </div>
       </header>
 

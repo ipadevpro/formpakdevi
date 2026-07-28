@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { FileSpreadsheet, Sparkles, LayoutDashboard, ArrowRight, ShieldCheck, BarChart3, Users } from "lucide-react";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
           </span>
         </div>
         <div className="flex items-center gap-3">
+          <ThemeToggle />
           <Link href="/login">
             <Button variant="ghost" size="sm">Masuk</Button>
           </Link>
@@ -53,7 +55,7 @@ export default function Home() {
             </Button>
           </Link>
           <Link href="/login">
-            <Button variant="outline" size="lg" className="h-12 px-8 text-base border-slate-350 hover:bg-slate-100 dark:border-slate-800">
+            <Button variant="outline" size="lg" className="h-12 px-8 text-base border-slate-300 hover:bg-slate-100 dark:border-slate-800">
               Masuk Akun Google
             </Button>
           </Link>
@@ -65,8 +67,8 @@ export default function Home() {
             <div className="h-10 w-10 bg-blue-50 dark:bg-blue-950/55 rounded-xl flex items-center justify-center text-primary">
               <Sparkles className="h-5 w-5" />
             </div>
-            <h3 className="font-bold text-slate-850 dark:text-slate-100">Drag n Drop Workspace</h3>
-            <p className="text-xs text-slate-500 dark:text-slate-450 leading-relaxed">
+            <h3 className="font-bold text-slate-800 dark:text-slate-100">Drag n Drop Workspace</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
               Seret dan lepaskan berbagai tipe field mulai dari teks, angka, kalender, rating bintang, hingga unggah file.
             </p>
           </div>
@@ -75,8 +77,8 @@ export default function Home() {
             <div className="h-10 w-10 bg-emerald-50 dark:bg-emerald-950/55 rounded-xl flex items-center justify-center text-emerald-600">
               <BarChart3 className="h-5 w-5" />
             </div>
-            <h3 className="font-bold text-slate-850 dark:text-slate-100">Analitik & Statistik</h3>
-            <p className="text-xs text-slate-500 dark:text-slate-450 leading-relaxed">
+            <h3 className="font-bold text-slate-800 dark:text-slate-100">Analitik & Statistik</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
               Pantau total kunjungan (views), jumlah respon masuk, tingkat konversi, tren pengisian harian, dan asal browser perangkat.
             </p>
           </div>
@@ -85,8 +87,8 @@ export default function Home() {
             <div className="h-10 w-10 bg-indigo-50 dark:bg-indigo-950/55 rounded-xl flex items-center justify-center text-indigo-600">
               <Users className="h-5 w-5" />
             </div>
-            <h3 className="font-bold text-slate-850 dark:text-slate-100">Manajemen Spreadsheet</h3>
-            <p className="text-xs text-slate-500 dark:text-slate-450 leading-relaxed">
+            <h3 className="font-bold text-slate-800 dark:text-slate-100">Manajemen Spreadsheet</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
               Lihat jawaban dalam tabel data interaktif. Salin data sel instan dengan satu klik, cari respon, dan unduh ke format Excel/CSV.
             </p>
           </div>

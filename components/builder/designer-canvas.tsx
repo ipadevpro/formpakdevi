@@ -160,7 +160,7 @@ function SortableDesignerField({
           )}
 
           {field.type === "file" && (
-            <div className="w-full h-16 border border-dashed border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 rounded-md flex flex-col items-center justify-center text-slate-450 text-[10px]">
+            <div className="w-full h-16 border border-dashed border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 rounded-md flex flex-col items-center justify-center text-slate-400 text-[10px]">
               <span>Klik atau seret file ke sini untuk mengunggah</span>
               <span className="text-[9px] text-slate-400 mt-0.5">Maksimal: {field.validation?.maxFileSize || 10}MB</span>
             </div>

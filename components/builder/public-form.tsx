@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Form, FormField } from "@/lib/types";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -128,7 +129,10 @@ export function PublicForm({ form }: PublicFormProps) {
 
   if (submitted) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50 dark:bg-slate-950 px-4">
+      <div className="flex min-h-screen items-center justify-center bg-slate-50 dark:bg-slate-950 px-4 relative">
+        <div className="absolute top-4 right-4">
+          <ThemeToggle />
+        </div>
         <Card className="w-full max-w-lg shadow-xl border-slate-200 dark:border-slate-800 text-center py-8">
           <CardHeader className="flex flex-col items-center">
             <CheckCircle2 className="h-16 w-16 text-green-500 mb-2 animate-bounce" />
@@ -148,7 +152,10 @@ export function PublicForm({ form }: PublicFormProps) {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-50 dark:bg-slate-950 py-10 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-slate-50 dark:bg-slate-950 py-10 px-4 relative">
+      <div className="absolute top-4 right-4">
+        <ThemeToggle />
+      </div>
       <Card className="w-full max-w-xl shadow-xl border-slate-200 dark:border-slate-800">
         <CardHeader className="space-y-2 border-b border-slate-100 dark:border-slate-800 pb-6">
           <CardTitle className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
@@ -321,7 +328,7 @@ export function PublicForm({ form }: PublicFormProps) {
                                 handleInputChange(field.id, next);
                               }}
                             />
-                            <Label htmlFor={`check-${field.id}-${opt}`} className="text-xs font-normal text-slate-600 dark:text-slate-350 cursor-pointer">
+                            <Label htmlFor={`check-${field.id}-${opt}`} className="text-xs font-normal text-slate-600 dark:text-slate-400 cursor-pointer">
                               {opt}
                             </Label>
                           </div>
@@ -335,7 +342,7 @@ export function PublicForm({ form }: PublicFormProps) {
                       {Array.from(new Set(field.options || [])).map((opt, i) => (
                         <div key={`${opt}-${i}`} className="flex items-center gap-2">
                           <RadioGroupItem id={`radio-${field.id}-${opt}`} value={opt} />
-                          <Label htmlFor={`radio-${field.id}-${opt}`} className="text-xs font-normal text-slate-600 dark:text-slate-350 cursor-pointer">
+                          <Label htmlFor={`radio-${field.id}-${opt}`} className="text-xs font-normal text-slate-600 dark:text-slate-400 cursor-pointer">
                             {opt}
                           </Label>
                         </div>
