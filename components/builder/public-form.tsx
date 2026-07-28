@@ -277,7 +277,7 @@ export function PublicForm({ form }: PublicFormProps) {
                       </Popover>
                     ) : (
                       <Select onValueChange={(val: string) => handleInputChange(field.id, val)}>
-                        <SelectTrigger className={err ? "border-red-500" : ""}>
+                        <SelectTrigger className={`w-full ${err ? "border-red-500" : ""}`}>
                           <SelectValue placeholder={field.placeholder || "Pilih salah satu..."} />
                         </SelectTrigger>
                         <SelectContent>
@@ -378,7 +378,16 @@ export function PublicForm({ form }: PublicFormProps) {
                           {answers[field.id] ? format(answers[field.id], "PPP") : "Pilih Tanggal..."}
                         </Button>
                       </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
+                      <PopoverContent
+                        className="w-auto p-0"
+                        align="start"
+                        onInteractOutside={(e) => {
+                          // Prevent closing when user interacts with year/month selection dropdowns on mobile
+                          if (e.target instanceof HTMLElement && e.target.closest("select")) {
+                            e.preventDefault();
+                          }
+                        }}
+                      >
                         <Calendar
                           mode="single"
                           selected={answers[field.id]}
