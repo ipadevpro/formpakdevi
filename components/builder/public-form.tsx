@@ -13,7 +13,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CalendarIcon, Loader2, Star, CheckCircle2 } from "lucide-react";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { CalendarIcon, Loader2, Star, CheckCircle2, ChevronsUpDown, Check } from "lucide-react";
 import { format } from "date-fns";
 import { toast } from "sonner";
 import confetti from "canvas-confetti";
@@ -27,6 +28,7 @@ export function PublicForm({ form }: PublicFormProps) {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [popoverOpen, setPopoverOpen] = useState<Record<string, boolean>>({});
 
   const handleInputChange = (fieldId: string, value: any) => {
     setAnswers((prev) => ({ ...prev, [fieldId]: value }));
@@ -221,18 +223,72 @@ export function PublicForm({ form }: PublicFormProps) {
                   )}
 
                   {field.type === "select" && (
-                    <Select onValueChange={(val: string) => handleInputChange(field.id, val)}>
-                      <SelectTrigger className={err ? "border-red-500" : ""}>
-                        <SelectValue placeholder={field.placeholder || "Pilih salah satu..."} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {Array.from(new Set(field.options || [])).map((opt, i) => (
-                          <SelectItem key={`${opt}-${i}`} value={opt}>
-                            {opt}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    field.validation?.searchable ? (
+                      <Popover
+                        open={popoverOpen[field.id] || false}
+                        onOpenChange={(open) =>
+                          setPopoverOpen((prev) => ({ ...prev, [field.id]: open }))
+                        }
+                      >
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant="outline"
+                            role="combobox"
+                            className={`w-full justify-between font-normal h-9 px-3 border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 rounded-md text-xs ${
+                              !answers[field.id] ? "text-slate-400" : "text-slate-950 dark:text-slate-50"
+                            } ${err ? "border-red-500" : ""}`}
+                          >
+                            {answers[field.id] || field.placeholder || "Pilih salah satu..."}
+                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0 max-h-[300px] overflow-hidden" align="start">
+                          <Command>
+                            <CommandInput placeholder="Cari opsi..." className="text-xs" />
+                            <CommandEmpty className="text-xs p-2 text-slate-400">Tidak ada opsi ditemukan.</CommandEmpty>
+                            <CommandGroup>
+                              <CommandList className="max-h-[200px] overflow-y-auto">
+                                {Array.from(new Set(field.options || [])).map((opt, i) => (
+                                  <CommandItem
+                                    key={`${opt}-${i}`}
+                                    value={opt}
+                                    onSelect={(currentValue) => {
+                                      const matchedOpt = Array.from(new Set(field.options || [])).find(
+                                        (o) => o.toLowerCase() === currentValue.toLowerCase()
+                                      ) || opt;
+                                      
+                                      handleInputChange(field.id, matchedOpt);
+                                      setPopoverOpen((prev) => ({ ...prev, [field.id]: false }));
+                                    }}
+                                    className="text-xs cursor-pointer"
+                                  >
+                                    <Check
+                                      className={`mr-2 h-4 w-4 ${
+                                        answers[field.id] === opt ? "opacity-100" : "opacity-0"
+                                      }`}
+                                    />
+                                    {opt}
+                                  </CommandItem>
+                                ))}
+                              </CommandList>
+                            </CommandGroup>
+                          </Command>
+                        </PopoverContent>
+                      </Popover>
+                    ) : (
+                      <Select onValueChange={(val: string) => handleInputChange(field.id, val)}>
+                        <SelectTrigger className={err ? "border-red-500" : ""}>
+                          <SelectValue placeholder={field.placeholder || "Pilih salah satu..."} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {Array.from(new Set(field.options || [])).map((opt, i) => (
+                            <SelectItem key={`${opt}-${i}`} value={opt}>
+                              {opt}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    )
                   )}
 
                   {field.type === "switch" && (
