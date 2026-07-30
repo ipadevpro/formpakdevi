@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { adminAuth } from "@/lib/firebase-admin";
 
 export async function POST(request: NextRequest) {
   try {
+    const { adminAuth } = await import("@/lib/firebase-admin");
+
     if (!adminAuth) {
       return NextResponse.json(
         { error: "Firebase Admin is not configured on this server." },
@@ -16,24 +17,26 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Missing ID token" }, { status: 400 });
     }
 
-    // Set session expiration to 5 days
-    const expiresIn = 60 * 60 * 24 * 5 * 1000;
-    const sessionCookie = await adminAuth.createSessionCookie(idToken, { expiresIn });
+    const expiresInMs = 60 * 60 * 24 * 5 * 1000;
+    const expiresInSec = 60 * 60 * 24 * 5;
+    const sessionCookie = await adminAuth.createSessionCookie(idToken, { expiresIn: expiresInMs });
 
-    // Set cookie using next/headers
     const cookieStore = await cookies();
     cookieStore.set("session", sessionCookie, {
-      maxAge: expiresIn,
+      maxAge: expiresInSec,
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "lax",
       path: "/",
     });
 
     return NextResponse.json({ status: "success" });
   } catch (error: any) {
     console.error("Session creation error:", error);
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    const message = error?.code === "auth/invalid-id-token"
+      ? "Invalid ID token"
+      : "Failed to create session";
+    return NextResponse.json({ error: message }, { status: 401 });
   }
 }
 
